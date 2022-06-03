@@ -1,13 +1,15 @@
 import { useState } from "react";
-import { Text, Image } from "react-native";
+import { Image } from "react-native";
+import { Provider } from "react-redux";
 import AppLoading from "expo-app-loading";
 import { Asset } from "expo-asset";
 import * as Font from "expo-font";
 import { Ionicons } from "@expo/vector-icons";
+import Gate from "./components/Gate";
+import store from "./redux/store";
 
 const cacheImages = (images) =>
   images.map((image) => {
-    console.log(image);
     if (typeof image === "string") {
       return Image.prefetch(image);
     } else {
@@ -31,7 +33,9 @@ export default function App() {
     return Promise.all([...fontPromises, ...imagePromises]);
   };
   return isReady ? (
-    <Text>I'm Ready</Text>
+    <Provider store={store}>
+      <Gate />
+    </Provider>
   ) : (
     <AppLoading
       onError={console.error}
