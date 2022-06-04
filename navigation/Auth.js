@@ -1,30 +1,28 @@
-import { View, Platform } from "react-native";
 import { createStackNavigator } from "@react-navigation/stack";
-import { Ionicons } from "@expo/vector-icons";
-import Welcome from "../screens/Welcome";
-import SignUp from "../screens/SignUp";
-import SignIn from "../screens/SignIn";
-
-const isAndroid = Platform.OS === "android";
+import Welcome from "../screens/Auth/Welcome";
+import SignUp from "../screens/Auth/SignUp";
+import SignIn from "../screens/Auth/SignIn";
+import BackBtn from "../components/Auth/BackBtn";
 
 const Auth = createStackNavigator();
 export default () => (
   <Auth.Navigator
-    mode="modal"
     screenOptions={{
+      presentation: "modal",
       headerBackTitleVisible: false,
       headerTransparent: true,
-      headerBackImage: () => (
-        <View style={{ paddingLeft: 20 }}>
-          <Ionicons
-            name={isAndroid ? "md-arrow-down" : "ios-arrow-down"}
-            size={28}
-          />
-        </View>
-      ),
+      headerBackImage: () => <BackBtn />,
     }}
   >
-    <Auth.Screen name="Welcome" component={Welcome} />
+    <Auth.Screen
+      name="Welcome"
+      component={Welcome}
+      options={{
+        headerTitleStyle: {
+          color: "white",
+        },
+      }}
+    />
     <Auth.Screen name="SignUp" component={SignUp} />
     <Auth.Screen name="SignIn" component={SignIn} />
   </Auth.Navigator>

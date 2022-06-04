@@ -25,8 +25,8 @@ export default function App() {
   const handleFinish = () => setIsReady(true);
   const loadAssets = () => {
     const images = [
-      require("./assets/loginBg.jpeg"),
-      "https://logowik.com/content/uploads/images/123_airbnb.jpg",
+      require("./assets/loginBg.jpg"),
+      require("./assets/airbnb-logo.png"),
     ];
     const fonts = [Ionicons.font];
     const imagePromises = cacheImages(images);
