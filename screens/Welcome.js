@@ -1,0 +1,9 @@
+import { View, Text, Button } from "react-native";
+
+export default ({ navigation }) => (
+  <View style={{ justifyContent: "center", alignItems: "center", flex: 1 }}>
+    <Text>Welcome</Text>
+    <Button onPress={() => navigation.navigate("SignIn")} title={"Sign In"} />
+    <Button onPress={() => navigation.navigate("SignUp")} title={"Sign Up"} />
+  </View>
+);
