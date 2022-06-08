@@ -1,4 +1,4 @@
-import { TouchableOpacity, Dimensions } from "react-native";
+import { TouchableOpacity, Dimensions, ActivityIndicator } from "react-native";
 import styled from "styled-components/native";
 import PropTypes from "prop-types";
 import colors from "../../colors";
@@ -11,7 +11,7 @@ const Button = styled.View`
   align-items: center;
   border: 1px solid ${(props) => (props.accent ? "transparent" : colors.black)}
   border-radius: 20px;
-  width: ${width / 2}px;
+  width: ${width / 1.5}px;
   background-color: ${(props) => (props.accent ? colors.red : "transparent")};
 `;
 const Text = styled.Text`
@@ -20,10 +20,14 @@ const Text = styled.Text`
   font-weight: 500;
 `;
 
-const Btn = ({ onPress, text, accent = false }) => (
-  <TouchableOpacity onPress={onPress}>
+const Btn = ({ loading, onPress, text, accent = false }) => (
+  <TouchableOpacity onPress={loading ? null : onPress}>
     <Button accent={accent}>
-      <Text accent={accent}>{text}</Text>
+      {loading ? (
+        <ActivityIndicator color={accent ? "white" : "black"} />
+      ) : (
+        <Text accent={accent}>{text}</Text>
+      )}
     </Button>
   </TouchableOpacity>
 );
@@ -32,6 +36,7 @@ Btn.propTypes = {
   onPress: PropTypes.func.isRequired,
   text: PropTypes.string.isRequired,
   accent: PropTypes.bool,
+  loading: PropTypes.bool,
 };
 
 export default Btn;

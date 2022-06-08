@@ -4,6 +4,8 @@ import styled from "styled-components/native";
 import Btn from "../../components/Auth/Btn";
 import Input from "../../components/Auth/Input";
 import DismissKeyboard from "../../components/DismissKeyboard";
+import { isEmail } from "../../utils";
+import { createAccount } from "../../api";
 
 const Container = styled.View`
   justify-content: center;
@@ -14,12 +16,51 @@ const InputContainer = styled.View`
   margin-bottom: 20px;
 `;
 
-const SignUp = () => {
+const SignUp = ({ navigation: { navigate } }) => {
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
-  const [username, setUsername] = useState("");
+  const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const handleSubmit = () => alert(`${username}, ${password}`);
+  const [loading, setLoading] = useState(false);
+  const isValidForm = () => {
+    if (
+      firstName === "" ||
+      lastName === "" ||
+      email === "" ||
+      password === ""
+    ) {
+      alert("All fields are required.");
+      return false;
+    }
+    if (!isEmail(email)) {
+      alert("Please add a valid email");
+      return false;
+    }
+    return true;
+  };
+  const handleSubmit = async () => {
+    if (!isValidForm()) {
+      return;
+    }
+    setLoading(true);
+    try {
+      const { status } = await createAccount({
+        username: email,
+        first_name: firstName,
+        last_name: lastName,
+        email,
+        password,
+      });
+      if (status === 201) {
+        alert("Account created.");
+        navigate("SignIn", { email, password });
+      }
+    } catch (e) {
+      alert(e);
+    } finally {
+      setLoading(false);
+    }
+  };
   return (
     <DismissKeyboard>
       <Container>
@@ -28,18 +69,19 @@ const SignUp = () => {
           <InputContainer>
             <Input
               autoCapitalize="none"
-              value={username}
-              placeholder="Username"
-              stateFn={setUsername}
+              value={email}
+              placeholder="Email"
+              stateFn={setEmail}
+              keyboardType={"email-address"}
             />
             <Input
-              autoCapitalize="none"
+              autoCapitalize="words"
               value={firstName}
               placeholder="First name"
               stateFn={setFirstName}
             />
             <Input
-              autoCapitalize="none"
+              autoCapitalize="words"
               value={lastName}
               placeholder="Last name"
               stateFn={setLastName}
@@ -52,7 +94,12 @@ const SignUp = () => {
               stateFn={setPassword}
             />
           </InputContainer>
-          <Btn text={"Sign Up"} accent onPress={handleSubmit} />
+          <Btn
+            loading={loading}
+            text={"Sign Up"}
+            accent
+            onPress={handleSubmit}
+          />
         </KeyboardAvoidingView>
       </Container>
     </DismissKeyboard>
