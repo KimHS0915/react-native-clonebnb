@@ -20,7 +20,7 @@ const Text = styled.Text`
   font-weight: 500;
 `;
 
-const Btn = ({ loading, onPress, text, accent = false }) => (
+const Btn = ({ loading = false, onPress, text, accent = false }) => (
   <TouchableOpacity onPress={loading ? null : onPress}>
     <Button accent={accent}>
       {loading ? (

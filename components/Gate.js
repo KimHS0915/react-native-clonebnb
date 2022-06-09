@@ -11,7 +11,13 @@ export default () => {
     <NavigationContainer>
       {isLoggedIn ? (
         <TouchableOpacity onPress={() => dispatch(logout())}>
-          <Text>Logout</Text>
+          <Text
+            style={{
+              margin: 150,
+            }}
+          >
+            Logout
+          </Text>
         </TouchableOpacity>
       ) : (
         <Auth />

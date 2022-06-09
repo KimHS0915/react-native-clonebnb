@@ -5,7 +5,7 @@ import Btn from "../../components/Auth/Btn";
 import Input from "../../components/Auth/Input";
 import DismissKeyboard from "../../components/DismissKeyboard";
 import { isEmail } from "../../utils";
-import { createAccount } from "../../api";
+import api from "../../api";
 
 const Container = styled.View`
   justify-content: center;
@@ -44,7 +44,7 @@ const SignUp = ({ navigation: { navigate } }) => {
     }
     setLoading(true);
     try {
-      const { status } = await createAccount({
+      const { status } = await api.createAccount({
         username: email,
         first_name: firstName,
         last_name: lastName,
