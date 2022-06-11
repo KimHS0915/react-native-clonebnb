@@ -1,12 +1,8 @@
-import { useState } from "react";
 import { StatusBar, KeyboardAvoidingView } from "react-native";
-import { useDispatch } from "react-redux";
 import styled from "styled-components/native";
-import Btn from "../../components/Auth/Btn";
-import Input from "../../components/Auth/Input";
-import DismissKeyboard from "../../components/DismissKeyboard";
-import utils from "../../utils";
-import { userLogin } from "../../redux/usersSlice";
+import Btn from "../../../components/Auth/Btn";
+import Input from "../../../components/Auth/Input";
+import DismissKeyboard from "../../../components/DismissKeyboard";
 
 const Container = styled.View`
   justify-content: center;
@@ -17,32 +13,13 @@ const InputContainer = styled.View`
   margin-bottom: 20px;
 `;
 
-const SignIn = ({ route: { params } }) => {
-  const [email, setEmail] = useState(params?.email);
-  const [password, setPassword] = useState(params?.password);
-  const dispatch = useDispatch();
-  const isValidForm = () => {
-    if (email === "" || password === "") {
-      alert("All fields are required.");
-      return false;
-    }
-    if (!utils.isEmail(email)) {
-      alert("Email is invalid");
-      return false;
-    }
-    return true;
-  };
-  const handleSubmit = () => {
-    if (!isValidForm()) {
-      return;
-    }
-    dispatch(
-      userLogin({
-        username: email,
-        password,
-      })
-    );
-  };
+const SignInPresenter = ({
+  email,
+  setEmail,
+  password,
+  setPassword,
+  handleSubmit,
+}) => {
   return (
     <DismissKeyboard>
       <Container>
@@ -71,4 +48,4 @@ const SignIn = ({ route: { params } }) => {
   );
 };
 
-export default SignIn;
+export default SignInPresenter;
