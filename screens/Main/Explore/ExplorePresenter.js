@@ -6,12 +6,12 @@ const Container = styled.View`
 `;
 const Text = styled.Text``;
 
-const Explore = () => {
+const ExplorePresenter = ({ rooms }) => {
   return (
     <Container>
-      <Text>Explore</Text>
+      <Text>Explore({rooms.length})</Text>
     </Container>
   );
 };
 
-export default Explore;
+export default ExplorePresenter;
