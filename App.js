@@ -27,6 +27,7 @@ export default function App() {
     const images = [
       require("./assets/loginBg.jpg"),
       require("./assets/airbnb-logo.png"),
+      require("./assets/defaultRoomPhoto.jpg"),
     ];
     const fonts = [Ionicons.font];
     const imagePromises = cacheImages(images);
