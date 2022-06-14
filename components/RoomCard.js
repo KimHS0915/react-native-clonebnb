@@ -58,7 +58,6 @@ const SlideImage = styled.Image`
 const FakeBar = styled.View``;
 
 const RoomCard = ({ id, name, price, photos, isFav, isSuperHost }) => {
-  console.log(photos.length);
   return (
     <Container>
       <PhotosContainer>

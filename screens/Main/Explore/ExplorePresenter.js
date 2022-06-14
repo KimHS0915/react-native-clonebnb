@@ -1,9 +1,4 @@
-import {
-  ActivityIndicator,
-  ScrollView,
-  TouchableOpacity,
-  Text,
-} from "react-native";
+import { ActivityIndicator, ScrollView, TouchableOpacity } from "react-native";
 import styled from "styled-components/native";
 import RoomCard from "../../../components/RoomCard";
 
@@ -30,7 +25,22 @@ const FakeText = styled.Text`
   font-weight: 200;
 `;
 
-const ExplorePresenter = ({ rooms }) => {
+const LoadMore = styled.View`
+  width: 100%
+  padding: 10px 10px;
+  align-items: center;
+  background-color: #006a70;
+  border-radius: 5px;
+  margin-bottom: 30px;
+`;
+
+const LoadMoreText = styled.Text`
+  color: white;
+  font-size: 18px;
+  font-weight: 500;
+`;
+
+const ExplorePresenter = ({ rooms, increasePage }) => {
   return (
     <Container>
       {rooms.length === 0 ? (
@@ -45,9 +55,9 @@ const ExplorePresenter = ({ rooms }) => {
             contentContainerStyle={{ paddingHorizontal: 15, paddingTop: 30 }}
             showsVerticalScrollIndicator={false}
           >
-            {rooms.map((room) => (
+            {rooms.map((room, index) => (
               <RoomCard
-                key={room.id}
+                key={index}
                 id={room.id}
                 name={room.name}
                 price={room.price}
@@ -56,8 +66,10 @@ const ExplorePresenter = ({ rooms }) => {
                 isSuperHost={room.user.superhost}
               />
             ))}
-            <TouchableOpacity>
-              <Text>Load More</Text>
+            <TouchableOpacity onPress={increasePage}>
+              <LoadMore>
+                <LoadMoreText>Load More</LoadMoreText>
+              </LoadMore>
             </TouchableOpacity>
           </ScrollView>
         </>
