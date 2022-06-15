@@ -1,7 +1,7 @@
 import { Dimensions } from "react-native";
 import styled from "styled-components/native";
 import PropTypes from "prop-types";
-import Swiper from "react-native-swiper";
+import Swiper from "react-native-web-swiper";
 
 const { height } = Dimensions.get("screen");
 
@@ -55,7 +55,7 @@ const SlideImage = styled.Image`
   height: 100%;
 `;
 
-const FakeBar = styled.View``;
+const SlideImageContainer = styled.View``;
 
 const RoomCard = ({ id, name, price, photos, isFav, isSuperHost }) => {
   return (
@@ -68,13 +68,18 @@ const RoomCard = ({ id, name, price, photos, isFav, isSuperHost }) => {
           />
         ) : (
           <Swiper
-            autoplay
-            paginationStyle={{ marginBottom: -15 }}
-            dotColor={"grey"}
-            activeDotColor={"white"}
+            controlsProps={{
+              PrevComponent: () => null,
+              NextComponent: () => null,
+              dotActiveStyle: {
+                backgroundColor: "white",
+              },
+            }}
           >
-            {photos.map((photo) => (
-              <SlideImage key={photo.id} source={{ uri: photo.file }} />
+            {photos.map((photo, index) => (
+              <SlideImageContainer key={index}>
+                <SlideImage key={photo.id} source={{ uri: photo.file }} />
+              </SlideImageContainer>
             ))}
           </Swiper>
         )}
