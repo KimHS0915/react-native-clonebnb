@@ -6,7 +6,7 @@ const Container = styled.View`
 `;
 const Text = styled.Text``;
 
-const Saved = () => {
+const SavedPresenter = () => {
   return (
     <Container>
       <Text>Saved</Text>
@@ -14,4 +14,4 @@ const Saved = () => {
   );
 };
 
-export default Saved;
+export default SavedPresenter;
