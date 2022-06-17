@@ -1,11 +1,11 @@
 import { useEffect } from "react";
 import SavedPresenter from "./SavedPresenter";
 
-const SavedContainer = ({ getFavs }) => {
+const SavedContainer = ({ getFavs, rooms }) => {
   useEffect(() => {
     getFavs();
   }, []);
-  return <SavedPresenter />;
+  return <SavedPresenter rooms={rooms} />;
 };
 
 export default SavedContainer;

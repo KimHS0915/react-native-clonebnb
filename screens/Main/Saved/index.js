@@ -9,7 +9,7 @@ const mapDispatchToProps = (dispatch) => {
 };
 
 const mapStateToProps = (state) => {
-  return;
+  return { rooms: state.roomsReducer.favs };
 };
 
-export default connect(null, mapDispatchToProps)(Saved);
+export default connect(mapStateToProps, mapDispatchToProps)(Saved);

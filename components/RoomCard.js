@@ -6,6 +6,7 @@ import PropTypes from "prop-types";
 import Swiper from "react-native-web-swiper";
 import utils from "../utils";
 import { toggleFav } from "../redux/usersSlice";
+import colors from "../colors";
 
 const { height } = Dimensions.get("screen");
 
@@ -77,6 +78,21 @@ const TOpacity = styled.TouchableOpacity`
   top: 5px;
 `;
 
+const getIconName = (isFav) => {
+  const isAndroid = utils.isAndroid();
+  if (isAndroid) {
+    if (isFav) {
+      return "md-heart";
+    }
+    return "md-heart-outline";
+  } else {
+    if (isFav) {
+      return "ios-heart";
+    }
+    return "ios-heart-outline";
+  }
+};
+
 const RoomCard = ({ id, name, price, photos, isFav, isSuperHost }) => {
   const dispatch = useDispatch();
   return (
@@ -84,8 +100,9 @@ const RoomCard = ({ id, name, price, photos, isFav, isSuperHost }) => {
       <TOpacity onPress={() => dispatch(toggleFav(id))}>
         <FavButton>
           <Ionicons
-            name={utils.isAndroid() ? "md-heart" : "ios-heart"}
+            name={getIconName(isFav)}
             size={30}
+            color={isFav ? colors.red : colors.black}
           />
         </FavButton>
       </TOpacity>

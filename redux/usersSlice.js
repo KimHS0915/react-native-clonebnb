@@ -37,11 +37,11 @@ export const userLogin = (form) => async (dispatch) => {
 
 export const getFavs = () => async (dispatch, getState) => {
   const {
-    usersReducer: { id },
+    usersReducer: { id, token },
   } = getState();
   try {
-    const { data } = await api.favs(id);
-    console.log(data);
+    const { data } = await api.favs(id, token);
+    dispatch(setFavs(data));
   } catch (e) {
     console.warn(e);
   }
@@ -51,6 +51,12 @@ export const toggleFav = (roomId) => async (dispatch, getState) => {
   const {
     usersReducer: { id, token },
   } = getState();
+  try {
+    const { status } = await api.toggleFavs(id, roomId, token);
+    console.log(status);
+  } catch (e) {
+    console.warn(e);
+  }
 };
 
 export default userSlice.reducer;
