@@ -8,6 +8,7 @@ import Profile from "../screens/Main/Profile";
 import Saved from "../screens/Main/Saved";
 import Room from "../screens/Main/Room";
 import utils from "../utils";
+import BackBtn from "../components/Auth/BackBtn";
 
 const TabsNavigator = createBottomTabNavigator();
 
@@ -53,7 +54,13 @@ const Tabs = () => (
 const MainNavigator = createStackNavigator();
 
 export default () => (
-  <MainNavigator.Navigator screenOptions={{ headerBacktitleVisible: false }}>
+  <MainNavigator.Navigator
+    mode="modal"
+    screenOptions={{
+      headerBacktitleVisible: false,
+      headerBackImage: () => <BackBtn />,
+    }}
+  >
     <MainNavigator.Screen
       name="Tabs"
       component={Tabs}

@@ -29,6 +29,7 @@ const SavedPresenter = ({ rooms }) => {
               photos={room.photos}
               isFav={room.is_fav}
               isSuperHost={room.user.superhost}
+              roomObj={room}
             />
           ))
         ) : (

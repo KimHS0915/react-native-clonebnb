@@ -64,6 +64,7 @@ const ExplorePresenter = ({ rooms, increasePage }) => {
                 photos={room.photos}
                 isFav={room.is_fav}
                 isSuperHost={room.user.superhost}
+                roomObj={room}
               />
             ))}
             <TouchableOpacity onPress={increasePage}>
