@@ -6,7 +6,7 @@ import Swiper from "react-native-web-swiper";
 const { height } = Dimensions.get("screen");
 
 const PhotosContainer = styled.View`
-  height: ${height / 4}px;
+  height: ${(props) => `${height / props.factor}`}px;
   width: 100%;
   margin-bottom: 10px;
   overflow: hidden;
@@ -19,8 +19,8 @@ const SlideImage = styled.Image`
 
 const SlideImageContainer = styled.View``;
 
-const RoomPhotos = ({ photos }) => (
-  <PhotosContainer>
+const RoomPhotos = ({ photos, factor = 4 }) => (
+  <PhotosContainer factor={factor}>
     {photos.length === 0 ? (
       <SlideImage
         source={require("../assets/defaultRoomPhoto.jpg")}
