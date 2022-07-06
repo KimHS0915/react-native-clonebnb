@@ -1,4 +1,5 @@
 import { useEffect } from "react";
+import MapView, { Marker } from "react-native-maps";
 import { Ionicons } from "@expo/vector-icons";
 import styled from "styled-components/native";
 import RoomPhotos from "../../components/RoomPhotos";
@@ -12,12 +13,12 @@ const DataContainer = styled.View`
 `;
 
 const Address = styled.Text`
-  margin-top: 20px;
-  font-size: 26px;
+  margin-top: 0px;
+  font-size: 20px;
 `;
 
 const PropertyInfoContainer = styled.View`
-  margin-top: 20px;
+  margin-top: 6px;
   flex-direction: row;
 `;
 
@@ -34,7 +35,7 @@ const PropertyInfoText = styled.Text`
 `;
 
 const CheckContainer = styled.View`
-  margin-top: 32px;
+  margin-top: 6px;
 `;
 
 const CheckTitlecontainer = styled.View`
@@ -43,12 +44,18 @@ const CheckTitlecontainer = styled.View`
 `;
 
 const CheckTitle = styled.Text`
-  font-size: 20px;
+  font-size: 18px;
   margin-left: 10px;
 `;
 
 const CheckTime = styled.Text`
-  margin-top: 16px;
+  margin-top: 8px;
+`;
+
+const MapContainer = styled.View`
+  width: 100%;
+  height: 200px;
+  margin-top: 8px;
 `;
 
 const Room = ({ route: { params }, navigation }) => {
@@ -92,6 +99,29 @@ const Room = ({ route: { params }, navigation }) => {
             {utils.formatTime(params.check_out)}
           </CheckTime>
         </CheckContainer>
+        <MapContainer>
+          <MapView
+            camera={{
+              center: {
+                latitude: parseFloat(params.lat),
+                longitude: parseFloat(params.lng),
+              },
+              altitude: 3000,
+              pitch: 50,
+              geading: 0,
+            }}
+            zoomEnabled={false}
+            scrollEnabled={false}
+            style={{ height: "100%", width: "100%" }}
+          >
+            <Marker
+              coordinate={{
+                latitude: parseFloat(params.lat),
+                longitude: parseFloat(params.lng),
+              }}
+            />
+          </MapView>
+        </MapContainer>
       </DataContainer>
     </Container>
   );
