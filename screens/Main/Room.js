@@ -108,7 +108,8 @@ const Room = ({ route: { params }, navigation }) => {
               },
               altitude: 3000,
               pitch: 50,
-              geading: 0,
+              heading: 0,
+              zoom: 10,
             }}
             zoomEnabled={false}
             scrollEnabled={false}

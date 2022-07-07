@@ -1,4 +1,10 @@
-import { ActivityIndicator, ScrollView, TouchableOpacity } from "react-native";
+import {
+  ActivityIndicator,
+  ScrollView,
+  TouchableOpacity,
+  TouchableWithoutFeedback,
+} from "react-native";
+import { useNavigation } from "@react-navigation/native";
 import styled from "styled-components/native";
 import RoomCard from "../../../components/RoomCard";
 
@@ -41,15 +47,20 @@ const LoadMoreText = styled.Text`
 `;
 
 const ExplorePresenter = ({ rooms, increasePage }) => {
+  const navigation = useNavigation();
   return (
     <Container>
       {rooms.length === 0 ? (
         <ActivityIndicator color="black" />
       ) : (
         <>
-          <FakeBar>
-            <FakeText>Search</FakeText>
-          </FakeBar>
+          <TouchableWithoutFeedback
+            onPress={() => navigation.navigate("Search")}
+          >
+            <FakeBar>
+              <FakeText>Search</FakeText>
+            </FakeBar>
+          </TouchableWithoutFeedback>
           <ScrollView
             style={{ width: "100%" }}
             contentContainerStyle={{ paddingHorizontal: 15, paddingTop: 30 }}

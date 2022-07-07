@@ -9,6 +9,7 @@ import MapScreen from "../screens/Main/Map";
 import Profile from "../screens/Main/Profile";
 import Saved from "../screens/Main/Saved";
 import Room from "../screens/Main/Room";
+import Search from "../screens/Main/Search";
 import utils from "../utils";
 import BackBtn from "../components/Auth/BackBtn";
 
@@ -81,6 +82,11 @@ export default () => (
           />
         ),
       }}
+    />
+    <MainNavigator.Screen
+      name="Search"
+      component={Search}
+      options={{ headerShown: false }}
     />
   </MainNavigator.Navigator>
 );
