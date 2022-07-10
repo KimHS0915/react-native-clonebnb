@@ -1,11 +1,8 @@
-import { useState } from "react";
-import { ActivityIndicator, Keyboard } from "react-native";
+import { ActivityIndicator } from "react-native";
 import styled from "styled-components/native";
-import { useNavigation } from "@react-navigation/native";
 import DismissKeyboard from "../../../components/DismissKeyboard";
 import RoomCard from "../../../components/RoomCard";
 import colors from "../../../colors";
-import api from "../../../api";
 
 const Container = styled.View`
   padding: 0px;
@@ -86,32 +83,20 @@ const Results = styled.ScrollView`
   margin-top: 20px;
 `;
 
-const SearchPresenter = () => {
-  const navigation = useNavigation();
-  const [searching, setSearching] = useState(false);
-  const [beds, setBeds] = useState();
-  const [bedrooms, setBedrooms] = useState();
-  const [bathrooms, setBathrooms] = useState();
-  const [maxPrice, setMaxPrice] = useState();
-  const [results, setResults] = useState();
-  const searchTrigger = async () => {
-    setSearching(true);
-    const form = {
-      ...(beds && { beds }),
-      ...(bedrooms && { bedrooms }),
-      ...(bathrooms && { bathrooms }),
-      ...(maxPrice && { max_price: maxPrice }),
-    };
-    try {
-      const { data } = await api.search(form, null);
-      setResults(data);
-    } catch (e) {
-      console.warn(e);
-    } finally {
-      Keyboard.dismiss();
-      setSearching(false);
-    }
-  };
+const SearchPresenter = ({
+  navigation,
+  beds,
+  setBeds,
+  bedrooms,
+  setBedrooms,
+  bathrooms,
+  setBathrooms,
+  maxPrice,
+  setMaxPrice,
+  searching,
+  searchTrigger,
+  results,
+}) => {
   return (
     <DismissKeyboard>
       <Container>

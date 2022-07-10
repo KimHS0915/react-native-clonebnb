@@ -58,8 +58,8 @@ const MainNavigator = createStackNavigator();
 
 export default () => (
   <MainNavigator.Navigator
-    mode="modal"
     screenOptions={{
+      presentation: "modal",
       headerBacktitleVisible: false,
       headerBackImage: () => <BackBtn />,
     }}
