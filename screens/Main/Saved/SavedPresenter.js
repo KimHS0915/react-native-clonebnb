@@ -1,4 +1,5 @@
 import styled from "styled-components/native";
+import RoomCard from "../../../components/RoomCard";
 
 const Container = styled.View`
   margin-top: 25px;
@@ -20,14 +21,14 @@ const SavedPresenter = ({ rooms }) => {
       <Title>Favourites</Title>
       <SV>
         {rooms && rooms.length !== 0 ? (
-          rooms.map((room) => (
+          rooms.map((room, index) => (
             <RoomCard
               key={index}
               id={room.id}
               name={room.name}
               price={room.price}
               photos={room.photos}
-              isFav={room.is_fav}
+              isFav={true}
               isSuperHost={room.user.superhost}
               roomObj={room}
             />
