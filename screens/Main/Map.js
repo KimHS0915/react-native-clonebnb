@@ -3,6 +3,7 @@ import { connect } from "react-redux";
 import { StyleSheet, Dimensions } from "react-native";
 import MapView, { Marker } from "react-native-maps";
 import styled from "styled-components/native";
+import RoomMarker from "../../components/RoomMarker";
 
 const { width } = Dimensions.get("screen");
 
@@ -65,7 +66,6 @@ const Map = ({ rooms }) => {
       },
     } = e;
     const position = Math.abs(Math.round(x / width));
-    console.log(position);
     setCurrentIndex(position);
   };
   const moveToMarker = () => {
@@ -92,20 +92,22 @@ const Map = ({ rooms }) => {
             latitude: parseFloat(rooms[0].lat),
             longitude: parseFloat(rooms[0].lng),
           },
-          altitude: 3000,
+          altitude: 1600,
           pitch: 0,
           heading: 0,
           zoom: 10,
         }}
       >
-        {rooms?.map((room) => (
+        {rooms?.map((room, index) => (
           <Marker
             key={room.id}
             coordinate={{
               latitude: parseFloat(room.lat),
               longitude: parseFloat(room.lng),
             }}
-          />
+          >
+            <RoomMarker selected={index === currentIndex} price={room.price} />
+          </Marker>
         ))}
       </MapView>
       <ScrollView

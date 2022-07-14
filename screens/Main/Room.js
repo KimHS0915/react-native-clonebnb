@@ -5,6 +5,7 @@ import styled from "styled-components/native";
 import RoomPhotos from "../../components/RoomPhotos";
 import colors from "../../colors";
 import utils from "../../utils";
+import RoomMarker from "../../components/RoomMarker";
 
 const Container = styled.View``;
 
@@ -54,7 +55,7 @@ const CheckTime = styled.Text`
 
 const MapContainer = styled.View`
   width: 100%;
-  height: 200px;
+  height: 140px;
   margin-top: 8px;
 `;
 
@@ -106,7 +107,7 @@ const Room = ({ route: { params }, navigation }) => {
                 latitude: parseFloat(params.lat),
                 longitude: parseFloat(params.lng),
               },
-              altitude: 3000,
+              altitude: 1600,
               pitch: 50,
               heading: 0,
               zoom: 10,
@@ -120,7 +121,9 @@ const Room = ({ route: { params }, navigation }) => {
                 latitude: parseFloat(params.lat),
                 longitude: parseFloat(params.lng),
               }}
-            />
+            >
+              <RoomMarker price={params.price} />
+            </Marker>
           </MapView>
         </MapContainer>
       </DataContainer>
