@@ -1,7 +1,4 @@
-import { useState, useEffect } from "react";
-import { connect } from "react-redux";
 import styled from "styled-components/native";
-import api from "../../api";
 
 const Container = styled.View`
   padding: 10px;
@@ -66,34 +63,34 @@ const SuperhostText = styled.Text`
   font-size: 10px;
 `;
 
-const Profile = ({ user }) => {
-  const [userInfo, setUserInfo] = useState({});
-  const getUser = async (id, token) => {
-    const { data } = await api.getUser(id, token);
-    setUserInfo(data);
-  };
-  useEffect(() => {
-    getUser(user.id, user.token);
-  }, []);
+const ProfilePresenter = ({
+  avatar,
+  email,
+  firstName,
+  lastName,
+  superhost,
+}) => {
   return (
     <Container>
       <AvatarContainer>
-        {userInfo.avatar ? (
-          <AvatarPhoto source={{ uri: userInfo.avatar }} />
+        {avatar ? (
+          <AvatarPhoto source={{ uri: avatar }} />
         ) : (
-          <AvatarPhoto source={require("../../assets/defaultRoomPhoto.jpg")} />
+          <AvatarPhoto
+            source={require("../../../assets/defaultRoomPhoto.jpg")}
+          />
         )}
       </AvatarContainer>
       <InfoContainer>
         <EmailContainer>
-          <EmailText>{userInfo.email}</EmailText>
+          <EmailText>{email}</EmailText>
         </EmailContainer>
         <NameContainer>
           <NameText>
-            {userInfo.first_name} {userInfo.last_name}
+            {firstName} {lastName}
           </NameText>
         </NameContainer>
-        {!userInfo.superhost ? (
+        {superhost ? (
           <SuperhostContainer>
             <SuperhostText>superhost</SuperhostText>
           </SuperhostContainer>
@@ -103,8 +100,4 @@ const Profile = ({ user }) => {
   );
 };
 
-const mapStateToProps = (state) => {
-  return { user: state.usersReducer };
-};
-
-export default connect(mapStateToProps)(Profile);
+export default ProfilePresenter;
