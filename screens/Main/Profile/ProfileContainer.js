@@ -4,12 +4,18 @@ import ProfilePresenter from "./ProfilePresenter";
 
 const ProfileContainer = ({ user }) => {
   const [userInfo, setUserInfo] = useState({});
+  const [userRooms, setUserRooms] = useState([]);
   const getUser = async (id, token) => {
     const { data } = await api.getUser(id, token);
     setUserInfo(data);
   };
+  const getUserRooms = async (id, token) => {
+    const { data } = await api.getUserRooms(id, token);
+    setUserRooms(data);
+  };
   useEffect(() => {
     getUser(user.id, user.token);
+    getUserRooms(user.id, user.token);
   }, []);
   return (
     <ProfilePresenter
@@ -18,6 +24,7 @@ const ProfileContainer = ({ user }) => {
       firstName={userInfo.first_name}
       lastName={userInfo.last_name}
       superhost={userInfo.superhost}
+      rooms={userRooms}
     />
   );
 };

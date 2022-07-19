@@ -1,4 +1,5 @@
 import styled from "styled-components/native";
+import RoomCard from "../../../components/RoomCard";
 
 const Container = styled.View`
   padding: 10px;
@@ -6,7 +7,7 @@ const Container = styled.View`
 `;
 
 const AvatarContainer = styled.View`
-  flex: 1;
+  flex: 2;
   margin-top: 20px;
   align-items: center;
   height: 100%;
@@ -17,12 +18,12 @@ const AvatarContainer = styled.View`
 
 const AvatarPhoto = styled.Image`
   border-radius: 90px;
-  width: 50%;
+  width: 45%;
   height: 100%;
 `;
 
 const InfoContainer = styled.View`
-  flex: 2;
+  flex: 1;
   margin-top: 10px;
 `;
 
@@ -63,12 +64,25 @@ const SuperhostText = styled.Text`
   font-size: 10px;
 `;
 
+const RoomsContainer = styled.View`
+  padding: 20px;
+  flex: 3;
+`;
+
+const SV = styled.ScrollView``;
+
+const NoRooms = styled.Text`
+  font-size: 36px;
+  margin-bottom: 10px;
+`;
+
 const ProfilePresenter = ({
   avatar,
   email,
   firstName,
   lastName,
   superhost,
+  rooms,
 }) => {
   return (
     <Container>
@@ -96,6 +110,27 @@ const ProfilePresenter = ({
           </SuperhostContainer>
         ) : null}
       </InfoContainer>
+      <RoomsContainer>
+        <SV>
+          {rooms && rooms.length !== 0 ? (
+            rooms.map((room, index) => (
+              <RoomCard
+                key={index}
+                id={room.id}
+                name={room.name}
+                price={room.price}
+                photos={room.photos}
+                isFav={room.is_fav}
+                isSuperHost={room.user.superhost}
+                roomObj={room}
+                myRoom={true}
+              />
+            ))
+          ) : (
+            <NoRooms>You don't have any rooms.</NoRooms>
+          )}
+        </SV>
+      </RoomsContainer>
     </Container>
   );
 };

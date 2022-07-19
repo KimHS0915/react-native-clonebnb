@@ -78,36 +78,57 @@ const getIconName = (isFav) => {
   }
 };
 
-const RoomCard = ({ id, name, price, photos, isFav, isSuperHost, roomObj }) => {
+const RoomCard = ({
+  id,
+  name,
+  price,
+  photos,
+  isFav,
+  isSuperHost,
+  roomObj,
+  myRoom = false,
+}) => {
   const dispatch = useDispatch();
   const navigation = useNavigation();
   return (
     <Container>
-      <TOpacity onPress={() => dispatch(toggleFav(id))}>
-        <FavButton>
-          <Ionicons
-            name={getIconName(isFav)}
-            size={30}
-            color={isFav ? colors.red : colors.black}
-          />
-        </FavButton>
-      </TOpacity>
+      {myRoom ? null : (
+        <TOpacity onPress={() => dispatch(toggleFav(id))}>
+          <FavButton>
+            <Ionicons
+              name={getIconName(isFav)}
+              size={30}
+              color={isFav ? colors.red : colors.black}
+            />
+          </FavButton>
+        </TOpacity>
+      )}
       <RoomPhotos photos={photos} />
-      <TouchableOpacity
-        style={{ alignItems: "flex-start" }}
-        onPress={() => navigation.navigate("RoomDetail", { ...roomObj })}
-      >
-        {isSuperHost ? (
-          <Superhost>
-            <SuperhostText>Superhost</SuperhostText>
-          </Superhost>
-        ) : null}
-        <Name>{name}</Name>
-        <PriceContainer>
-          <PriceNumber>${price}</PriceNumber>
-          <PriceText> / night</PriceText>
-        </PriceContainer>
-      </TouchableOpacity>
+      {myRoom ? (
+        <>
+          <Name>{name}</Name>
+          <PriceContainer>
+            <PriceNumber>${price}</PriceNumber>
+            <PriceText> / night</PriceText>
+          </PriceContainer>
+        </>
+      ) : (
+        <TouchableOpacity
+          style={{ alignItems: "flex-start" }}
+          onPress={() => navigation.navigate("RoomDetail", { ...roomObj })}
+        >
+          {isSuperHost ? (
+            <Superhost>
+              <SuperhostText>Superhost</SuperhostText>
+            </Superhost>
+          ) : null}
+          <Name>{name}</Name>
+          <PriceContainer>
+            <PriceNumber>${price}</PriceNumber>
+            <PriceText> / night</PriceText>
+          </PriceContainer>
+        </TouchableOpacity>
+      )}
     </Container>
   );
 };
