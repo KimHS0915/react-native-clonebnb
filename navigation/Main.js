@@ -10,6 +10,7 @@ import Profile from "../screens/Main/Profile";
 import Saved from "../screens/Main/Saved";
 import Room from "../screens/Main/Room";
 import Search from "../screens/Main/Search";
+import Edit from "../screens/Main/Edit";
 import utils from "../utils";
 import BackBtn from "../components/Auth/BackBtn";
 
@@ -60,7 +61,7 @@ export default () => (
   <MainNavigator.Navigator
     screenOptions={{
       presentation: "modal",
-      headerBacktitleVisible: false,
+      headerBackTitleVisible: false,
       headerBackImage: () => <BackBtn />,
     }}
   >
@@ -87,6 +88,11 @@ export default () => (
       name="Search"
       component={Search}
       options={{ headerShown: false }}
+    />
+    <MainNavigator.Screen
+      name="Edit"
+      component={Edit}
+      option={{ headerShown: false }}
     />
   </MainNavigator.Navigator>
 );

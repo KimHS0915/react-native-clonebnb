@@ -68,18 +68,20 @@ const SuperhostText = styled.Text`
 `;
 
 const BtnContainer = styled.View`
-  margin-top: 10px;
+  flex-direction: row;
+  padding: 20px;
   align-items: center;
 `;
 
 const BtnView = styled.View`
+  flex: 1;
   background-color: ${colors.black};
   margin-right: 10px;
   border-radius: 5px;
-  width: 21%;
 `;
 
 const BtnText = styled.Text`
+  text-align: center;
   color: white;
   font-weight: 600;
   padding: 6px 10px;
@@ -105,6 +107,7 @@ const ProfilePresenter = ({
   superhost,
   rooms,
   dispatch,
+  navigation,
 }) => {
   return (
     <Container>
@@ -135,6 +138,11 @@ const ProfilePresenter = ({
           <BtnView>
             <TouchableOpacity onPress={() => dispatch(logout())}>
               <BtnText>Log Out</BtnText>
+            </TouchableOpacity>
+          </BtnView>
+          <BtnView>
+            <TouchableOpacity onPress={() => navigation.navigate("Edit")}>
+              <BtnText>Edit</BtnText>
             </TouchableOpacity>
           </BtnView>
         </BtnContainer>
