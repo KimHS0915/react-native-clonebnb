@@ -1,5 +1,8 @@
+import { TouchableOpacity } from "react-native";
 import styled from "styled-components/native";
+import { logout } from "../../../redux/usersSlice";
 import RoomCard from "../../../components/RoomCard";
+import colors from "../../../colors";
 
 const Container = styled.View`
   padding: 10px;
@@ -8,23 +11,23 @@ const Container = styled.View`
 
 const AvatarContainer = styled.View`
   flex: 2;
-  margin-top: 20px;
+  margin-top: 5px;
   align-items: center;
   height: 100%;
   width: 100%;
-  margin-bottom: 10px;
+  margin-bottom: 5px;
   overflow: hidden;
 `;
 
 const AvatarPhoto = styled.Image`
   border-radius: 90px;
-  width: 45%;
+  width: 28%;
   height: 100%;
 `;
 
 const InfoContainer = styled.View`
-  flex: 1;
-  margin-top: 10px;
+  flex: 3;
+  margin-top: 5px;
 `;
 
 const EmailContainer = styled.View`
@@ -35,10 +38,10 @@ const EmailContainer = styled.View`
 const EmailText = styled.Text`
   font-size: 20px;
   font-weight: 600;
-s`;
+`;
 
 const NameContainer = styled.View`
-  margin-top: 20px;
+  margin-top: 10px;
   align-items: center;
 `;
 
@@ -48,7 +51,7 @@ const NameText = styled.Text`
 `;
 
 const SuperhostContainer = styled.View`
-  margin-top: 15px;
+  margin-top: 10px;
   align-items: center;
   padding: 4px;
   border: 1px solid black;
@@ -64,16 +67,34 @@ const SuperhostText = styled.Text`
   font-size: 10px;
 `;
 
+const BtnContainer = styled.View`
+  margin-top: 10px;
+  align-items: center;
+`;
+
+const BtnView = styled.View`
+  background-color: ${colors.black};
+  margin-right: 10px;
+  border-radius: 5px;
+  width: 21%;
+`;
+
+const BtnText = styled.Text`
+  color: white;
+  font-weight: 600;
+  padding: 6px 10px;
+`;
+
 const RoomsContainer = styled.View`
   padding: 20px;
-  flex: 3;
+  flex: 5;
 `;
 
 const SV = styled.ScrollView``;
 
 const NoRooms = styled.Text`
   font-size: 36px;
-  margin-bottom: 10px;
+  margin-top: 10px;
 `;
 
 const ProfilePresenter = ({
@@ -83,6 +104,7 @@ const ProfilePresenter = ({
   lastName,
   superhost,
   rooms,
+  dispatch,
 }) => {
   return (
     <Container>
@@ -109,6 +131,13 @@ const ProfilePresenter = ({
             <SuperhostText>superhost</SuperhostText>
           </SuperhostContainer>
         ) : null}
+        <BtnContainer>
+          <BtnView>
+            <TouchableOpacity onPress={() => dispatch(logout())}>
+              <BtnText>Log Out</BtnText>
+            </TouchableOpacity>
+          </BtnView>
+        </BtnContainer>
       </InfoContainer>
       <RoomsContainer>
         <SV>

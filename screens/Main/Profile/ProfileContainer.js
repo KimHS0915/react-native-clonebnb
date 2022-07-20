@@ -1,8 +1,10 @@
 import { useState, useEffect } from "react";
+import { useDispatch } from "react-redux";
 import api from "../../../api";
 import ProfilePresenter from "./ProfilePresenter";
 
 const ProfileContainer = ({ user }) => {
+  const dispatch = useDispatch();
   const [userInfo, setUserInfo] = useState({});
   const [userRooms, setUserRooms] = useState([]);
   const getUser = async (id, token) => {
@@ -25,6 +27,7 @@ const ProfileContainer = ({ user }) => {
       lastName={userInfo.last_name}
       superhost={userInfo.superhost}
       rooms={userRooms}
+      dispatch={dispatch}
     />
   );
 };
