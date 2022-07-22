@@ -141,7 +141,15 @@ const ProfilePresenter = ({
             </TouchableOpacity>
           </BtnView>
           <BtnView>
-            <TouchableOpacity onPress={() => navigation.navigate("Edit")}>
+            <TouchableOpacity
+              onPress={() =>
+                navigation.navigate("Edit", {
+                  prevEmail: email,
+                  prevFirstName: firstName,
+                  prevLastName: lastName,
+                })
+              }
+            >
               <BtnText>Edit</BtnText>
             </TouchableOpacity>
           </BtnView>
