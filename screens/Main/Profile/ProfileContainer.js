@@ -10,6 +10,7 @@ const ProfileContainer = ({ user }) => {
   const isFocused = useIsFocused();
   const [userInfo, setUserInfo] = useState({});
   const [userRooms, setUserRooms] = useState([]);
+  const [hosting, setHosting] = useState(false);
   const getUser = async (id, token) => {
     const { data } = await api.getUser(id, token);
     setUserInfo(data);
@@ -29,6 +30,8 @@ const ProfileContainer = ({ user }) => {
       firstName={userInfo.first_name}
       lastName={userInfo.last_name}
       superhost={userInfo.superhost}
+      hosting={hosting}
+      setHosting={setHosting}
       rooms={userRooms}
       dispatch={dispatch}
       navigation={navigation}

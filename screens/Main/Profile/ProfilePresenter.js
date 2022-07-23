@@ -1,5 +1,6 @@
 import { TouchableOpacity } from "react-native";
 import styled from "styled-components/native";
+import { FontAwesome } from "@expo/vector-icons";
 import { logout } from "../../../redux/usersSlice";
 import RoomCard from "../../../components/RoomCard";
 import colors from "../../../colors";
@@ -11,7 +12,7 @@ const Container = styled.View`
 
 const AvatarContainer = styled.View`
   flex: 2;
-  margin-top: 5px;
+  margin-top: 3px;
   align-items: center;
   height: 100%;
   width: 100%;
@@ -36,7 +37,7 @@ const EmailContainer = styled.View`
 `;
 
 const EmailText = styled.Text`
-  font-size: 20px;
+  font-size: 18px;
   font-weight: 600;
 `;
 
@@ -46,17 +47,16 @@ const NameContainer = styled.View`
 `;
 
 const NameText = styled.Text`
-  font-size: 16px;
+  font-size: 15px;
   font-weight: 300;
 `;
 
 const SuperhostContainer = styled.View`
-  margin-top: 10px;
+  margin-top: 5px;
   align-items: center;
   padding: 4px;
   border: 1px solid black;
   border-radius: 4px;
-  margin-bottom: 5px;
   margin-left: 130px;
   margin-right: 129px;
 `;
@@ -99,18 +99,54 @@ const NoRooms = styled.Text`
   margin-top: 10px;
 `;
 
+const HostingContainer = styled.View`
+  margin-left: 75px;
+  margin-top: 3px;
+  flex-direction: row;
+  margin-bottom: 10px;
+`;
+
+const HostingTextContainer = styled.View`
+  align-items: center;
+  padding: 5px;
+  border: 1px solid black;
+  border-radius: 4px;
+  margin-left: 25px;
+  margin-right: 30px;
+`;
+
+const HostingText = styled.Text`
+  text-transform: uppercase;
+  font-weight: 600;
+  font-size: 12px;
+`;
+
 const ProfilePresenter = ({
   avatar,
   email,
   firstName,
   lastName,
   superhost,
+  hosting,
+  setHosting,
   rooms,
   dispatch,
   navigation,
 }) => {
   return (
     <Container>
+      <HostingContainer>
+        <HostingTextContainer>
+          <HostingText>Hosting</HostingText>
+        </HostingTextContainer>
+        <TouchableOpacity onPress={() => setHosting(!hosting)}>
+          <FontAwesome
+            name={hosting ? "toggle-on" : "toggle-off"}
+            size={28}
+            color="black"
+          />
+        </TouchableOpacity>
+      </HostingContainer>
       <AvatarContainer>
         {avatar ? (
           <AvatarPhoto source={{ uri: avatar }} />
