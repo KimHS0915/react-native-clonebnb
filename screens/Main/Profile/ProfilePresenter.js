@@ -121,35 +121,24 @@ const HostingText = styled.Text`
   font-size: 12px;
 `;
 
-const ProfilePresenter = ({
-  avatar,
-  email,
-  firstName,
-  lastName,
-  superhost,
-  hosting,
-  setHosting,
-  rooms,
-  dispatch,
-  navigation,
-}) => {
+const ProfilePresenter = ({ user, dispatch, navigation, toggleHosting }) => {
   return (
     <Container>
       <HostingContainer>
         <HostingTextContainer>
           <HostingText>Hosting</HostingText>
         </HostingTextContainer>
-        <TouchableOpacity onPress={() => setHosting(!hosting)}>
+        <TouchableOpacity onPress={toggleHosting}>
           <FontAwesome
-            name={hosting ? "toggle-on" : "toggle-off"}
+            name={user.hosting ? "toggle-on" : "toggle-off"}
             size={28}
             color="black"
           />
         </TouchableOpacity>
       </HostingContainer>
       <AvatarContainer>
-        {avatar ? (
-          <AvatarPhoto source={{ uri: avatar }} />
+        {user.profile.avatar ? (
+          <AvatarPhoto source={{ uri: user.profile.avatar }} />
         ) : (
           <AvatarPhoto
             source={require("../../../assets/defaultRoomPhoto.jpg")}
@@ -158,14 +147,14 @@ const ProfilePresenter = ({
       </AvatarContainer>
       <InfoContainer>
         <EmailContainer>
-          <EmailText>{email}</EmailText>
+          <EmailText>{user.profile.email}</EmailText>
         </EmailContainer>
         <NameContainer>
           <NameText>
-            {firstName} {lastName}
+            {user.profile.first_name} {user.profile.last_name}
           </NameText>
         </NameContainer>
-        {superhost ? (
+        {user.profile.superhost ? (
           <SuperhostContainer>
             <SuperhostText>superhost</SuperhostText>
           </SuperhostContainer>
@@ -180,9 +169,9 @@ const ProfilePresenter = ({
             <TouchableOpacity
               onPress={() =>
                 navigation.navigate("Edit", {
-                  prevEmail: email,
-                  prevFirstName: firstName,
-                  prevLastName: lastName,
+                  prevEmail: user.profile.email,
+                  prevFirstName: user.profile.first_name,
+                  prevLastName: user.profile.last_name,
                 })
               }
             >
@@ -193,8 +182,8 @@ const ProfilePresenter = ({
       </InfoContainer>
       <RoomsContainer>
         <SV>
-          {rooms && rooms.length !== 0 ? (
-            rooms.map((room, index) => (
+          {user.userRooms && user.userRooms.length !== 0 ? (
+            user.userRooms.map((room, index) => (
               <RoomCard
                 key={index}
                 id={room.id}

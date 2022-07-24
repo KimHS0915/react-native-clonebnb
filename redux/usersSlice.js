@@ -7,6 +7,9 @@ const userSlice = createSlice({
   initialState: {
     isLoggedIn: false,
     token: null,
+    profile: null,
+    userRooms: null,
+    hosting: false,
   },
   reducers: {
     login(state, action) {
@@ -18,10 +21,20 @@ const userSlice = createSlice({
       state.isLoggedIn = false;
       state.token = null;
     },
+    setProfile(state, action) {
+      state.profile = action.payload;
+    },
+    setUserRooms(state, action) {
+      state.userRooms = action.payload;
+    },
+    setHosting(state, action) {
+      state.hosting = !state.hosting;
+    },
   },
 });
 
-export const { login, logout } = userSlice.actions;
+export const { login, logout, setProfile, setUserRooms, setHosting } =
+  userSlice.actions;
 
 export const userLogin = (form) => async (dispatch) => {
   try {
@@ -55,6 +68,38 @@ export const toggleFav = (roomId) => async (dispatch, getState) => {
   try {
     const { status } = await api.toggleFavs(id, roomId, token);
     dispatch(setFav({ roomId }));
+  } catch (e) {
+    console.warn(e);
+  }
+};
+
+export const getUser = () => async (dispatch, getState) => {
+  const {
+    usersReducer: { id, token },
+  } = getState();
+  try {
+    const { data } = await api.getUser(id, token);
+    dispatch(setProfile(data));
+  } catch (e) {
+    alert(e);
+  }
+};
+
+export const getUserRooms = () => async (dispatch, getState) => {
+  const {
+    usersReducer: { id, token },
+  } = getState();
+  try {
+    const { data } = await api.getUserRooms(id, token);
+    dispatch(setUserRooms(data));
+  } catch (e) {
+    alert(e);
+  }
+};
+
+export const toggleHosting = () => async (dispatch) => {
+  try {
+    dispatch(setHosting());
   } catch (e) {
     console.warn(e);
   }
