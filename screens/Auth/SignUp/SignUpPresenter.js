@@ -7,24 +7,15 @@ import DismissKeyboard from "../../../components/DismissKeyboard";
 const Container = styled.View`
   justify-content: center;
   align-items: center;
+  margin-top: 10%;
   flex: 1;
 `;
+
 const InputContainer = styled.View`
   margin-bottom: 20px;
 `;
 
-const SignUpPresenter = ({
-  email,
-  setEmail,
-  firstName,
-  setFirstName,
-  lastName,
-  setLastName,
-  password,
-  setPassword,
-  loading,
-  handleSubmit,
-}) => {
+const SignUpPresenter = ({ signUpState, handleSubmit }) => {
   return (
     <DismissKeyboard>
       <Container>
@@ -33,33 +24,47 @@ const SignUpPresenter = ({
           <InputContainer>
             <Input
               autoCapitalize="none"
-              value={email}
+              value={signUpState.email}
               placeholder="Email"
-              stateFn={setEmail}
+              stateFn={signUpState.setEmail}
               keyboardType={"email-address"}
             />
             <Input
               autoCapitalize="words"
-              value={firstName}
+              value={signUpState.firstName}
               placeholder="First name"
-              stateFn={setFirstName}
+              stateFn={signUpState.setFirstName}
             />
             <Input
               autoCapitalize="words"
-              value={lastName}
+              value={signUpState.lastName}
               placeholder="Last name"
-              stateFn={setLastName}
+              stateFn={signUpState.setLastName}
             />
             <Input
               autoCapitalize="none"
-              value={password}
+              value={signUpState.password1}
               placeholder="Password"
-              isPassword={true}
-              stateFn={setPassword}
+              isPassword={signUpState.hiddenPassword}
+              stateFn={signUpState.setPassword1}
+            />
+            <Input
+              autoCapitalize="none"
+              value={signUpState.password2}
+              placeholder="Confirm password"
+              isPassword={signUpState.hiddenPassword}
+              stateFn={signUpState.setPassword2}
+            />
+            <Btn
+              loading={signUpState.loading}
+              text={signUpState.hiddenPassword ? "Show" : "Hidden"}
+              onPress={() =>
+                signUpState.setHiddenPassword(!signUpState.hiddenPassword)
+              }
             />
           </InputContainer>
           <Btn
-            loading={loading}
+            loading={signUpState.loading}
             text={"Sign Up"}
             accent
             onPress={handleSubmit}

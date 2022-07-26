@@ -14,6 +14,7 @@ const EditContainer = ({
   const [password1, setPassword1] = useState("");
   const [password2, setPassword2] = useState("");
   const [changePassword, setChangePassword] = useState(false);
+  const [hiddenPassword, setHiddenPassword] = useState(true);
   const [loading, setLoading] = useState(false);
   const isValidForm = () => {
     if (changePassword && (password1 !== password2 || password1 === "")) {
@@ -78,6 +79,8 @@ const EditContainer = ({
     setPassword2: setPassword2,
     changePassword: changePassword,
     setChangePassword: setChangePassword,
+    hiddenPassword: hiddenPassword,
+    setHiddenPassword: setHiddenPassword,
     loading: loading,
     handleSubmit: handleSubmit,
   };

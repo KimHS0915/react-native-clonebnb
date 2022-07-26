@@ -7,14 +7,21 @@ const SignUpContainer = ({ navigation: { navigate } }) => {
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  const [password1, setPassword1] = useState("");
+  const [password2, setPassword2] = useState("");
+  const [hiddenPassword, setHiddenPassword] = useState(true);
   const [loading, setLoading] = useState(false);
   const isValidForm = () => {
+    if (password1 !== password2) {
+      alert("Invalid password");
+      return false;
+    }
     if (
       firstName === "" ||
       lastName === "" ||
       email === "" ||
-      password === ""
+      password1 === "" ||
+      password2 === ""
     ) {
       alert("All fields are required.");
       return false;
@@ -36,11 +43,11 @@ const SignUpContainer = ({ navigation: { navigate } }) => {
         first_name: firstName,
         last_name: lastName,
         email,
-        password,
+        password: password1,
       });
       if (status === 201) {
         alert("Account created.");
-        navigate("SignIn", { email, password });
+        navigate("SignIn", { email, password1 });
       }
     } catch (e) {
       alert(e);
@@ -48,19 +55,23 @@ const SignUpContainer = ({ navigation: { navigate } }) => {
       setLoading(false);
     }
   };
+  const signUpState = {
+    email: email,
+    setEmail: setEmail,
+    firstName: firstName,
+    setFirstName: setFirstName,
+    lastName: lastName,
+    setLastName: setLastName,
+    password1: password1,
+    setPassword1: setPassword1,
+    password2: password2,
+    setPassword2: setPassword2,
+    hiddenPassword: hiddenPassword,
+    setHiddenPassword: setHiddenPassword,
+    loading: loading,
+  };
   return (
-    <SignUpPresenter
-      email={email}
-      setEmail={setEmail}
-      firstName={firstName}
-      setFirstName={setFirstName}
-      lastName={lastName}
-      setLastName={setLastName}
-      password={password}
-      setPassword={setPassword}
-      loading={loading}
-      handleSubmit={handleSubmit}
-    />
+    <SignUpPresenter signUpState={signUpState} handleSubmit={handleSubmit} />
   );
 };
 
