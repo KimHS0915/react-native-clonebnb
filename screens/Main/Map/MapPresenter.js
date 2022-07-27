@@ -32,11 +32,10 @@ const RoomCard = styled.View`
   flex-direction: row;
   align-items: center;
 `;
-
 const RoomPhoto = styled.Image`
   width: 85px;
   height: 85px;
-  borer-radius: 5px;
+  border-radius: 5px;
   margin-right: 10px;
 `;
 

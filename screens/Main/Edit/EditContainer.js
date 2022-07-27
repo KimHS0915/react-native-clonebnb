@@ -8,9 +8,9 @@ const EditContainer = ({
   route: { params },
   navigation: { navigate },
 }) => {
-  const [firstName, setFirstName] = useState(params.prevFirstName);
-  const [lastName, setLastName] = useState(params.prevLastName);
-  const [email, setEmail] = useState(params.prevEmail);
+  const [firstName, setFirstName] = useState(params?.prevFirstName);
+  const [lastName, setLastName] = useState(params?.prevLastName);
+  const [email, setEmail] = useState(params?.prevEmail);
   const [password1, setPassword1] = useState("");
   const [password2, setPassword2] = useState("");
   const [changePassword, setChangePassword] = useState(false);
